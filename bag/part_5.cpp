@@ -4,15 +4,15 @@
 #include "util.h"
 
 #define POPULATION_SIZE 30
-#define MUTATION_SIZE 5 //How many 'bits' get mutated
-#define SELECTION_PRESSURE 20 //how many "kick out" from population
+#define MUTATION_SIZE 20 //How many 'bits' get mutated
+#define SELECTION_PRESSURE 5 //how many "kick out" from population
 #define OVERLOAD_PENALTY 0.5 //50%
 
 class solution_gen:public solution 
 {
 public:
-	static bool sorterByHealth(const solution_gen &i1, const solution_gen &i2){return i1.m_iHealth > i2.m_iHealth;};
-	static bool sorterByPrice(const solution_gen &i1, const solution_gen &i2){return i1.price > i2.price;};
+	static bool sorterByHealth(const solution_gen *i1, const solution_gen *i2){return i1->m_iHealth > i2->m_iHealth;};
+	static bool sorterByPrice(const solution_gen *i1, const solution_gen *i2){return i1->price > i2->price;};
 	
 	void 	calcHealth(instance& sInstance);
 	void 	set(item& item, bool bSet){if(bSet)add(item);else del(item);};
@@ -43,12 +43,17 @@ public:
 	
 	int m_iSize;
 	std::vector<solution_gen> m_aGeneration;
+	std::vector<solution_gen*> m_aGenerationSort;
 	int m_iGeneration;
 };
 
 int strategy_Genetic(instance &sInstance)
 {
 	population sPopulation(sInstance, POPULATION_SIZE);
+	
+	sPopulation.m_aGenerationSort.resize(POPULATION_SIZE);
+	for(int iIndex = 0; iIndex < sPopulation.m_iSize; iIndex++)
+		sPopulation.m_aGenerationSort[iIndex] = &(sPopulation.m_aGeneration[iIndex]);
 	
 	sPopulation.populate();
 
@@ -67,12 +72,12 @@ int strategy_Genetic(instance &sInstance)
 		sPopulation.mutate();
 	}
 	
-	std::sort(sPopulation.m_aGeneration.begin(), sPopulation.m_aGeneration.end(), solution_gen::sorterByPrice);
+	std::sort(sPopulation.m_aGenerationSort.begin(), sPopulation.m_aGenerationSort.end(), solution_gen::sorterByPrice);
 	
 	for(int iIndex = 0; iIndex < sPopulation.m_iSize; iIndex++)
-		if(sPopulation.m_aGeneration[iIndex].weight <= sInstance.capacity)
+		if(sPopulation.m_aGenerationSort[iIndex]->weight <= sInstance.capacity)
 		{
-			sInstance.result = sPopulation.m_aGeneration[iIndex];
+			sInstance.result = *sPopulation.m_aGenerationSort[iIndex];
 			break;
 		}
 }
@@ -86,7 +91,7 @@ void population::populate()
 {
 	for(int iIndex = 0; iIndex < m_iSize; iIndex++)
 	{
-		m_aGeneration[iIndex].selection.resize(m_sInstance.items.size());
+		m_aGeneration[iIndex].selection.resize(m_sInstance.items.size(), 0);
 		m_aGeneration[iIndex].m_bValid = true;
 	}
 		
@@ -99,46 +104,48 @@ void population::populate()
 
 void population::select()
 {
-	std::sort(m_aGeneration.begin(), m_aGeneration.end(), solution_gen::sorterByHealth);
+	int iSurvivorsCount = m_iSize - SELECTION_PRESSURE;
+	std::vector<solution_gen> vSurvivors(iSurvivorsCount);
+	
+	std::sort(m_aGenerationSort.begin(), m_aGenerationSort.end(), solution_gen::sorterByHealth);
 	
 	int iRankSum = m_iSize * (m_iSize+1) / 2;
 	
 	// Kill some inhabitants
-	for(int iIndex = 0; iIndex < SELECTION_PRESSURE; iIndex++)
+	for(int iIndex = 0; iIndex < iSurvivorsCount; iIndex++)
 	{
 		int iRandom = rand() % iRankSum;
 		
 		int iCurRankSum = 0;
-		for(int iRank = m_iSize-1; iRank >=0; iRank--)
+		int iRank;
+		for(iRank = m_iSize; iRank > 0; iRank--)
 		{
 			iCurRankSum+=iRank;
 			if(iRandom < iCurRankSum)
 			{
-				m_aGeneration[iRank].m_bValid = false;
+				vSurvivors[iIndex] = *(m_aGenerationSort[m_iSize - iRank]);
 				break;
 			}
 		}
+		if(iRank<=0)
+			iCurRankSum = 0;
 	}
+	
+	for(int iIndex = 0; iIndex < iSurvivorsCount; iIndex++)
+		m_aGeneration[iIndex] = vSurvivors[iIndex];
 }
 
 void population::combine()
 {
-	for(int iIndex = 0; iIndex < m_iSize; iIndex++)
+	int iSurvivorsCount = m_iSize - SELECTION_PRESSURE;
+	
+	for(int iIndex = iSurvivorsCount; iIndex < m_iSize; iIndex++)
 	{
-		if(m_aGeneration[iIndex].m_bValid)
-			continue;
 		
-		int iFirstParent = rand() % m_iSize;
-		int iSecondParent = rand() % m_iSize;
-		
-		while(iFirstParent==iSecondParent || iFirstParent==iIndex || iSecondParent==iIndex)
-		{
-			iFirstParent = (iFirstParent + 1) % m_iSize;
-			iSecondParent = (iSecondParent +2) % m_iSize;
-		}
+		int iFirstParent = rand() % iSurvivorsCount;
+		int iSecondParent = rand() % iSurvivorsCount;
 		
 		combineOne(m_aGeneration[iFirstParent], m_aGeneration[iSecondParent], m_aGeneration[iIndex]);
-		m_aGeneration[iIndex].m_bValid = true;
 	}
 }
 
@@ -170,7 +177,7 @@ void population::mutateOne ( solution_gen& sIndividuum, int iRandom )
 bool population::isFinished()
 {
 	m_iGeneration ++;
-	return m_iGeneration > 100;
+	return m_iGeneration > 300;
 }
 
 void population::recalcHealth()
@@ -184,12 +191,5 @@ void solution_gen::calcHealth( instance& sInstance)
 	m_iHealth = price*1000;
 	
 	if(weight > sInstance.capacity)
-		m_iHealth *= (1-OVERLOAD_PENALTY);
-	
-// 	if(weight)
-// 		m_iHealth -= weight*100;
-// 	if(weight)
-// 		m_iHealth = price*1000/weight;
-// 	else
-// 		m_iHealth = 0;
+		m_iHealth *=  (sInstance.capacity/weight)*0.8;// (1-OVERLOAD_PENALTY);
 }
