@@ -1,0 +1,86 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x02\x00\x00\x00\x0e\x00u\x00l\x00o\x00h\x00a\x00_\x001\x00\x00\x00\x0e\x00u\x00l\x00o\x00h\x00a\x00_\x001)
+
+[CMake]
+BuildDirs[$e]=$HOME/workspace/skola/X36PAA/bag/build
+CMakeDir=/usr/share/cmake/Modules
+Current CMake Binary=file:///usr/bin/cmake
+CurrentBuildDir=file:///root/workspace/skola/X36PAA/bag/build
+CurrentBuildType=Debug
+CurrentInstallDir=file:///usr/local
+ProjectRootRelative=./
+
+[Launch]
+Launch Configurations=Launch Configuration 0,Launch Configuration 1
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=small
+Type=Native Application
+
+[Launch][Launch Configuration 0][Data]
+Arguments=-scdt -n 4 5 data/knap_20.txt solutions/knap_20.txt
+Debugger Shell=
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependency Action=Nothing
+Display Demangle Names=true
+Display Static Members=true
+EnvironmentGroup=default
+Executable=file:///root/workspace/skola/X36PAA/bag/build/uloha_1
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Extra Synchronization Events=0
+Floating Toolbar=true
+Framestack Depth=12
+Free Block List Size=5000000
+Full Cache Simulation=false
+GDB Path=
+Leak Resolution Matching=0
+Leak Summary=1
+Limit Errors=false
+Maximum Framestack Size=2000000
+Remote GDB Config Script=
+Remote GDB Run Script=
+Remote GDB Shell Script=
+Separate Terminal For Application IO=false
+Separate Thread Reporting=false
+Show Reachable Blocks=false
+Simulate Hardware Prefetcher=false
+Try Setting Breakpoints On Loading Libraries=true
+Use External Terminal=false
+Valgrind Arguments=
+Valgrind Executable=file:///usr/bin/valgrind
+Working Directory=file:///root/workspace/skola/X36PAA/bag
+isExecutable=true
+
+[Launch][Launch Configuration 1]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=big
+Type=Native Application
+
+[Launch][Launch Configuration 1][Data]
+Arguments=-sdt -n 1 4 data/knap_20.txt solutions/knap_20.txt
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependency Action=Nothing
+EnvironmentGroup=default
+Executable=file:///root/workspace/skola/X36PAA/uloha_1
+Extra Synchronization Events=0
+Framestack Depth=12
+Free Block List Size=5000000
+Full Cache Simulation=false
+Leak Resolution Matching=0
+Leak Summary=1
+Limit Errors=false
+Maximum Framestack Size=2000000
+Separate Thread Reporting=false
+Show Reachable Blocks=false
+Simulate Hardware Prefetcher=false
+Use External Terminal=false
+Valgrind Arguments=
+Valgrind Executable=file:///usr/bin/valgrind
+Working Directory=file:///root/workspace/skola/X36PAA
+isExecutable=true
+
+[MakeBuilder]
+Number Of Jobs=1
