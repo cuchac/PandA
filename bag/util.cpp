@@ -68,12 +68,13 @@ bool loadSolutions(std::ifstream &stream)
          i->selection[uiIndex] = uiSelected != 0;
       }
    }
+
    return true;
 }
 
 void print_solution(solution &sSolution, uint uiIndex)
 {
-   std::cout << uiIndex << " - " << sSolution.price << " : ";
+   std::cout << "index: " << uiIndex << ", price: " << sSolution.price << " - ";
    for(selection_t::iterator it = sSolution.selection.begin(); it != sSolution.selection.end(); it++)
    {
       std::cout << ((*it)?"1" : "0") << ", ";
@@ -85,10 +86,10 @@ double compare_solution(solution &sSolution, uint uiIndex, solution &sCorrrectSo
 {
    if(g_uiFlags & FLAG_CHECK)
    {
-      std::cout << uiIndex << " - " << sSolution.price << " : "
+      std::cout << "index: " << uiIndex << ", price: " << sSolution.price << " -> "
          << ((sCorrrectSolution.price == sSolution.price)?"correct":"wrong")
-         << ":" << sCorrrectSolution.price
-         << ", err:" <<  (1.0 - ((double)sSolution.price / sCorrrectSolution.price)) << std::endl;
+         << ", " << "correct price: " << sCorrrectSolution.price
+         << ", rel. err: " <<  (1.0 - ((double)sSolution.price / sCorrrectSolution.price)) << std::endl;
 
       selection_t::iterator it2 = sCorrrectSolution.selection.begin();
       for(selection_t::iterator it = sSolution.selection.begin(); it != sSolution.selection.end(); it++, it2++)
