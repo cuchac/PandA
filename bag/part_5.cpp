@@ -4,6 +4,12 @@
 #include "main.h"
 #include "util.h"
 
+uint        g_uiGenerations = 200;
+uint        g_uiPopulation = 100;
+uint        g_uiSelectionPressure = 16; // How many to "kick out" from population
+uint        g_uiMutations = 72; // How many 'bits' get mutated
+uint        g_uiOverloadPenalty = 50; // [%]
+
 class solution_gen:public solution
 {
    public:

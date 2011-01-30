@@ -11,14 +11,6 @@ Number of visited states global variable
 */
 extern uint g_uiStates;
 
-/**
-Genetic algorithm global variables
-*/
-extern uint g_uiGenerations;
-extern uint g_uiPopulation;
-extern uint g_uiMutations;
-extern uint g_uiSelectionPressure;
-extern uint g_uiOverloadPenalty;
 
 /**
 This represents the item in bag.

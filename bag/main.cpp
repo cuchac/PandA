@@ -14,12 +14,6 @@ uint        g_uiFlags = 0;
 uint        g_uiIterations = 1;
 uint        g_uiStates = 0;
 
-uint        g_uiGenerations = 200;
-uint        g_uiPopulation = 100;
-uint        g_uiSelectionPressure = 16; // How many to "kick out" from population
-uint        g_uiMutations = 72; // How many 'bits' get mutated
-uint        g_uiOverloadPenalty = 50; // [%]
-
 void print_help(char * sProgramName);
 
 int main(int argc, char **argv) {

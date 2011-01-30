@@ -2,12 +2,9 @@
 BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x02\x00\x00\x00\x0e\x00u\x00l\x00o\x00h\x00a\x00_\x001\x00\x00\x00\x0e\x00u\x00l\x00o\x00h\x00a\x00_\x001)
 
 [CMake]
-BuildDirs[$e]=$HOME/workspace/skola/X36PAA/bag/build
+BuildDirs[$e]=$HOME/Workspace/X36PAA/PandA/bag/build
 CMakeDir=/usr/share/cmake/Modules
-Current CMake Binary=file:///usr/bin/cmake
-CurrentBuildDir=file:///root/workspace/skola/X36PAA/bag/build
-CurrentBuildType=Debug
-CurrentInstallDir=file:///usr/local
+CurrentBuildDir=file:///root/Workspace/X36PAA/PandA/bag/build
 ProjectRootRelative=./
 
 [Launch]
@@ -27,7 +24,7 @@ Dependency Action=Nothing
 Display Demangle Names=true
 Display Static Members=true
 EnvironmentGroup=default
-Executable=file:///root/workspace/skola/X36PAA/bag/build/uloha_1
+Executable=file:///root/Workspace/X36PAA/PandA/bag/build/bag
 External Terminal=konsole --noclose --workdir %workdir -e %exe
 Extra Synchronization Events=0
 Floating Toolbar=true
@@ -50,7 +47,7 @@ Try Setting Breakpoints On Loading Libraries=true
 Use External Terminal=false
 Valgrind Arguments=
 Valgrind Executable=file:///usr/bin/valgrind
-Working Directory=file:///root/workspace/skola/X36PAA/bag
+Working Directory=file:///root/Workspace/X36PAA/PandA/bag
 isExecutable=true
 
 [Launch][Launch Configuration 1]
@@ -84,3 +81,6 @@ isExecutable=true
 
 [MakeBuilder]
 Number Of Jobs=1
+
+[Project]
+VersionControlSupport=kdevgit
