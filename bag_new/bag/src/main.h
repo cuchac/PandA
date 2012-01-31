@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <map>
+#include <hash_map>
 #include <sys/types.h>
 
 /**
@@ -10,6 +11,14 @@ Number of visited states global variable
 */
 extern uint g_uiStates;
 
+/**
+Genetic algorithm global variables
+*/
+extern uint g_uiGenerations;
+extern uint g_uiPopulation;
+extern uint g_uiMutations;
+extern uint g_uiSelectionPressure;
+extern uint g_uiOverloadPenalty;
 
 /**
 This represents the item in bag.
@@ -37,8 +46,8 @@ typedef std::vector<bool> selection_t;
 /**
 Represents solution of bag problem.
 */
-struct Solution {
-   Solution(): price(0), weight(0), index(0) {};
+struct solution_t {
+   solution_t(): price(0), weight(0), index(0) {};
 
    // Helper functions
    void  add(item &item) {if(!selection[item.index]) {price += item.price; weight += item.weight; selection[item.index] = true;};};
@@ -52,14 +61,14 @@ struct Solution {
    std::vector<bool> selection;
 };
 
-typedef struct Solution solution;
+typedef struct solution_t solution;
 
 /**
 This represents specific instance of problem with restrictions.
 Instance keeps its calculated solution in result member.
 */
-struct Instance {
-   Instance(): capacity(0), index(0) {};
+struct instance_t {
+   instance_t(): capacity(0), index(0) {};
 
    // Members
    int  capacity;
@@ -71,7 +80,7 @@ struct Instance {
    solution result;
 };
 
-typedef struct Instance instance;
+typedef struct instance_t instance;
 
 /**
 Map of instances indexed by unique ID

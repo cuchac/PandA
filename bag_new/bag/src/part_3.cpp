@@ -3,7 +3,6 @@
 #include <math.h>
 #include "main.h"
 #include "util.h"
-#include <hash_map>
 
 int strategy_BandB_recurse(instance &sInstance, solution &sCurrentSolution, uint uiLevel);
 

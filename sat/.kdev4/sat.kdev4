@@ -1,0 +1,36 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x06\x00s\x00a\x00t)
+
+[CMake]
+BuildDirs=/root/Workspace/X36PAA/PandA/sat/build
+CMakeDir=/usr/share/cmake/Modules
+Current CMake Binary=file:///usr/bin/cmake
+CurrentBuildDir=file:///root/Workspace/X36PAA/PandA/sat/build
+CurrentBuildType=Debug
+CurrentInstallDir=
+Extra Arguments=
+ProjectRootRelative=./
+
+[Launch]
+Launch Configurations=Launch Configuration 0
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=default
+Type=Native Application
+
+[Launch][Launch Configuration 0][Data]
+Arguments=-scdt -n 1 3 ../data/uf100-0100.cnf
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependency Action=Nothing
+EnvironmentGroup=default
+Executable=
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Project Target=sat,sat
+Use External Terminal=false
+Working Directory=
+isExecutable=false
+
+[Project]
+VersionControlSupport=kdevgit
