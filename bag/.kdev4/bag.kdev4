@@ -2,14 +2,37 @@
 BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 
 [CMake]
-BuildDirs=/root/Workspace/X36PAA/PandA/bag/build
+BuildDirs[$e]=$HOME/workspace/skola/X36PAA/PandA/bag/build
 CMakeDir=/usr/share/cmake/Modules
-Current CMake Binary=file:///usr/bin/cmake
-CurrentBuildDir=file:///root/Workspace/X36PAA/PandA/bag/build
-CurrentBuildType=Debug
+CurrentBuildDir=file:///root/workspace/skola/X36PAA/PandA/bag/build
 CurrentInstallDir=
 Extra Arguments=
 ProjectRootRelative=./
+
+[Launch]
+Launch Configurations=Launch Configuration 1
+
+[Launch][Launch Configuration 1]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=bag
+Type=Native Application
+
+[Launch][Launch Configuration 1][Data]
+Arguments=\s-ctds 8 ../data/knap_40.txt
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x02\x00\x00\x00\x06\x00b\x00a\x00g\x00\x00\x00\x06\x00b\x00a\x00g)
+Dependency Action=Build
+EnvironmentGroup=default
+Executable=
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Project Target=bag,bag
+Use External Terminal=false
+Working Directory=
+isExecutable=false
+
+[MakeBuilder]
+Default Make Environment Profile=0
+Number Of Jobs=1
 
 [Project]
 VersionControlSupport=kdevgit

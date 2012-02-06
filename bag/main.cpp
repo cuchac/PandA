@@ -130,6 +130,9 @@ int main(int argc, char **argv) {
       case 7:
          fStrategy = strategy_Genetic_optimize;
          break;
+      case 8:
+         fStrategy = strategy_FPTAS;
+         break;
       default:
          std::cout << "Unknown strategy: " << argv[1] << std::endl;
          exit(5);
@@ -200,6 +203,7 @@ void print_help(char * sProgramName)
    std::cout << "  5      dynamic programing (part 3)" << std::endl;
    std::cout << "  6      advanced iterative (part 5)" << std::endl << std::endl;
    std::cout << "  7      advanced iterative (part 5) - find best parameters" << std::endl << std::endl;
+   std::cout << "  8      dynamic programing - FPTAS (part3)" << std::endl << std::endl;
    std::cout << "Options:" << std::endl;
    std::cout << "  -c     print check of each solution" << std::endl;
    std::cout << "  -t     print timings" << std::endl;

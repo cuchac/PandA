@@ -45,8 +45,37 @@ int strategy_BandB_recurse(instance &sInstance, solution &sCurrentSolution, uint
    return 0;
 }
 
+int g_iDynamicScaledownBits = 0;
+
+class hashMap: public __gnu_cxx::hash_map<int, int>
+{
+public:
+   int& operator[](const key_type& __key){
+      if(g_iDynamicScaledownBits)
+         return __gnu_cxx::hash_map<int, int>::operator[](__key >> g_iDynamicScaledownBits);
+      else
+         return __gnu_cxx::hash_map<int, int>::operator[](__key);
+   }
+
+   iterator find(const key_type& __key){
+      if(g_iDynamicScaledownBits)
+         return __gnu_cxx::hash_map<int, int>::find(__key >> g_iDynamicScaledownBits);
+      else
+         return __gnu_cxx::hash_map<int, int>::find(__key);
+   }
+
+   const_iterator find(const key_type& __key) const{
+      if(g_iDynamicScaledownBits)
+         return __gnu_cxx::hash_map<int, int>::find(__key >> g_iDynamicScaledownBits);
+      else
+         return __gnu_cxx::hash_map<int, int>::find(__key);
+   }
+   
+};
+
+
 int strategy_Dynamic_recurse(instance &sInstance, solution &sCurrentSolution, int iLevel, int iCapacity);
-std::vector<__gnu_cxx::hash_map<int, int> > g_sCache;
+std::vector<hashMap> g_sCache;
 
 int strategy_Dynamic(instance &sInstance)
 {
@@ -142,4 +171,16 @@ int strategy_GreedyBest(instance &sInstance)
    }
 
    return 0;
+}
+
+int strategy_FPTAS(instance &sInstance)
+{
+   g_iDynamicScaledownBits = 1;
+   
+   if(getenv("FPTAS_SCALEDOWN"))
+      g_iDynamicScaledownBits = atoi(getenv("FPTAS_SCALEDOWN"));
+
+   std::cout << "Scaling: " << g_iDynamicScaledownBits << std::endl;
+
+   return strategy_Dynamic(sInstance);
 }

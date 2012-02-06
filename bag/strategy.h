@@ -9,6 +9,7 @@ int strategy_Greedy(instance &sInstance);
 int strategy_GreedyBest(instance &sInstance);
 int strategy_BandB(instance &sInstance);
 int strategy_Dynamic(instance &sInstance);
+int strategy_FPTAS(instance &sInstance);
 int strategy_Genetic(instance &m_sInstance);
 int strategy_Genetic_optimize(instance &m_sInstance);
 
