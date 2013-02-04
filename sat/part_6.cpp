@@ -7,8 +7,8 @@
 bool g_bBandB = false;
 int g_iMutations;
 int g_iSelectionPressure;
-int g_iGenerations = 800;
-int g_iPopulation = 200;
+int g_iGenerations = 160;
+int g_iPopulation = 80;
 float g_fSelectionPressure = 0.2; // How many to "kick out" from population [%]
 float g_fMutations = 0.2;  // How many 'bits' get mutated [%]
 float g_fNotSatisfiedPenalty = 4.0;
@@ -154,7 +154,8 @@ void Population::select()
 
    std::sort(m_aGenerationSort.begin(), m_aGenerationSort.end(), Solution::sorterByHealth);
 
-   //std::cout << "<td>" << m_aGenerationSort[0]->m_iSattisfied << "</td>";
+   //std::cout << m_aGenerationSort[0]->m_iPrice << " ";
+   //std::cout << "<td>" << m_aGenerationSort[0]->m_iPrice << "</td>";
 
    //int iRankSum = m_iSize * (m_iSize+1) / 2;
    int iRankSum = 0;
@@ -320,6 +321,8 @@ int strategy_Genetic_optimize(Instance &sInstance)
    float fBestMutations = 0;
    float fBestNotSatisfiedPenalty = 0;
 
+   std::cout << std::endl;
+   
    // Find best parameters
    for(g_iGenerations = 800; g_iGenerations <= 800; g_iGenerations += 20)
    {
@@ -329,8 +332,11 @@ int strategy_Genetic_optimize(Instance &sInstance)
          {
             for(g_fMutations = 0.005; g_fMutations < 0.5; g_fMutations *= 2)
             {
-               for(g_fNotSatisfiedPenalty = 0; g_fNotSatisfiedPenalty < 6; g_fNotSatisfiedPenalty += 1)
+               for(g_fNotSatisfiedPenalty = 1; g_fNotSatisfiedPenalty < 6; g_fNotSatisfiedPenalty += 1)
                {
+                  std::cout << ".";
+                  std::cout.flush();
+                  
                   uiAvgPrice = 0;
                   for(int i = 0; i < 10; i++)
                   {
